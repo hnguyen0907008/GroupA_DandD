@@ -4,6 +4,8 @@
 	//set up the puzzle pieces and boards
 	//need a reference to each piece that we want to create
 	const thePieces = ["topLeft", "topRight", "bottomLeft", "bottomRight"]; //array
+	const theButton = document.querySelector("#buttonholder img");
+
 
 	//SELECT ELEMENTS
 	//get a reference to the drag side 
@@ -29,7 +31,7 @@
 			piecesBoard.innerHTML += newPuzzlePiece;
 		});
 
-		puzzleBoard.style.backgroundImage = `url(./images/backGround${pictureIndex}`;
+		puzzleBoard.style.backgroundImage = `url(./images/backGround${pictureIndex}.jpg)`;
 
 		initDrag();
 	}
@@ -41,6 +43,9 @@
 			img.addEventListener("dragstart", function(e) {
 				//e.preventDefault();
 				console.log('draggin...')
+
+				//set: reference to the id of the image - grab the id
+				e.dataTransfer.setData('text/plain', this.id);
 			});
 		});
 	}
@@ -55,6 +60,10 @@
 		zone.addEventListener("drop", function(e){
 			e.preventDefault();
 			console.log("you dropped sumpin on me");
+
+			//get image - dropping
+			let piece = e.dataTransfer.getData('text/plain')
+			e.target.appendChild(document. querySelector(`#${piece}`));
 		});
 	})
 
